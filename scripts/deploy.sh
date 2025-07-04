@@ -19,7 +19,7 @@ echo "🔨 Building project..."
 # 빌드된 JAR 경로
 BUILD_PATH=build/libs/$APP_NAME
 
-cho "Current directory: $(pwd)"
+echo "Current directory: $(pwd)"
 echo "Contents of current directory:"
 ls -la
 echo "Does private_key exist here? $(test -f private_key && echo "Yes" || echo "No")"

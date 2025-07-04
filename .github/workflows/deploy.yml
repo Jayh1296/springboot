@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: Rocky8.4-latest
 
     steps:
       - name: Checkout code
@@ -34,6 +34,19 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         run: ./scripts/deploy.sh
+
+      - name: Check Jar File
+        run: |
+          echo "Checking Jar file in build/libs..."
+          ls -lh build/libs
+
+      - name: Upload release aaset
+        if: always()
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify Slack on Success
         if: success()
