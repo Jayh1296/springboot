@@ -40,10 +40,11 @@ jobs:
           echo "Checking Jar file in build/libs..."
           ls -lh build/libs
 
-      - name: Upload release aaset
+      - name: Upload release asset
         if: always()
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: auto-${{ github.run_number }}
           files: build/libs/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
